@@ -6,6 +6,7 @@ import { ok, toJSON } from 'extra-response'
 import { Falsy } from 'justypes'
 import { raceAbortSignals, timeoutSignal } from 'extra-abort'
 import { isntUndefined } from '@blackglory/types'
+import { expectedVersion } from '@src/utils'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
@@ -61,6 +62,7 @@ export class EStoreClient {
         )
       ]))
     , keepalive(options.keepalive ?? this.options.keepalive)
+    , header('Accept-Version', expectedVersion)
     ]
   }
 
