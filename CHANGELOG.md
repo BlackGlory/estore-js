@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/BlackGlory/estore-js/compare/v0.1.0...v0.1.1) (2022-02-10)
+
+
+### Features
+
+* add Accept-Version to EStoreClient ([192397b](https://github.com/BlackGlory/estore-js/commit/192397bf809a0ebfca8e046ab9abad5d40ce970d))
+
 ## 0.1.0 (2022-02-06)
 
 
