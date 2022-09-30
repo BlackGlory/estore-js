@@ -28,7 +28,10 @@ export class TokenPolicyClient extends EStoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async get(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<ITokenPolicy> {
+  async get(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<ITokenPolicy> {
     const req = get(
       ...this.getCommonTransformers(options)
     , pathname(`/admin/estore/${namespace}/token-policies`)

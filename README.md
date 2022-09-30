@@ -9,19 +9,22 @@ yarn add @blackglory/estore-js
 ## API
 ### EStoreClient
 ```ts
-new EStoreClient({
-  server: string
-, token?: string
-, basicAuth?: {
-    username: string
-  , password: string
-  }
-, keepalive?: boolean
-, timeout?: number
-})
-```
+interface IInfo {
+  namespace: string
+  items: number
+}
 
-```ts
+interface IEStoreClientOptions {
+  server: string
+  token?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
+  keepalive?: boolean
+  timeout?: number
+}
+
 interface IEStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
@@ -34,335 +37,214 @@ interface IEStoreClientRequestOptionsWithoutToken {
   keepalive?: boolean
   timeout?: number | false
 }
-```
 
-#### append
-```ts
-EStoreClient#append(
-  namespace: string
-, itemId: string
-, payload: Json
-, index?: number
-, options?: IEStoreClientRequestOptions
-): Promise<void>
-```
+class EStoreClient {
+  constructor(options: IEStoreClientOptions)
 
-#### getEvent
-```ts
-EStoreClient#getEvent(
-  namespace: string
-, itemId: string
-, index: number
-, options?: IEStoreClientRequestOptions
-): Promise<Json | undefined>
-```
+  append<T>(
+    namespace: string
+  , itemId: string
+  , payload: T
+  , index?: number
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<void>
 
-#### getEvents
-```ts
-EStoreClient#getEvents(
-  namespace: string
-, itemId: string
-, options?: IEStoreClientRequestOptions
-): Promise<Json[] | undefined>
-```
+  getEvent<T>(
+    namespace: string
+  , itemId: string
+  , index: number
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<T | undefined>
 
-#### getSize
-```ts
-EStoreClient#getSize(
-  namespace: string
-, itemId: string
-, optinos?: IEStoreClientRequestOptions
-): Promise<number>
-```
+  getEvents<T>(
+    namespace: string
+  , itemId: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<T[] | undefined>
 
-#### has
-```ts
-EStoreClient#has(
-  namespace: string
-, itemId: string
-, options?: IEStoreClientRequestOptions
-): Promise<boolean>
-```
+  getSize(
+    namespace: string
+  , itemId: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<number>
 
-#### del
-```ts
-EStoreClient#del(
-  namespace: string
-, itemId: string
-, options?: IEStoreClientRequestOptions
-): Promise<void>
-```
+  has(
+    namespace: string
+  , itemId: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<boolean>
 
-#### clear
-```ts
-EStoreClient#clear(
-  namespace: string
-, options?: IEStoreClientRequestOptions
-): Promise<void>
-```
+  del(
+    namespace: string
+  , itemId: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<void>
 
-#### getAllItemIds
-```ts
-EStoreClient#getAllItemIds(
-  namespace: string
-, options?: IEStoreClientRequestOptions
-): Promise<string[]>
-```
+  clear(
+    namespace: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<void> 
 
-#### getAllNamespaces
-```ts
-EStoreClient#getAllNamespaces(
-  options?: IEStoreClientRequestOptionsWithoutToken
-): Promise<string[]>
-```
+  getAllItemIds(
+    namespace: string
+  , options: IEStoreClientRequestOptions = {}
+  ): Promise<string[]>
 
-#### stats
-```ts
-EStoreClient#stats(
-  namespace: string
-, options?: IEStoreClientRequestOptionsWithoutToken
-): Promise<<{
-  namespace: string
-  items: number
-}>
+  getAllNamespaces(
+    options: IEStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<string[]>
+
+  stats(
+    namespace: string
+  , options: IEStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<IInfo>
+}
 ```
 
 ### EStoreManager
 ```ts
-new EStoreManager({
+interface IEStoreManagerOptions {
   server: string
-, adminPassword: string
-, keepalive?: boolean
-, timeout?: number
-})
-```
-
-```ts
-interface IEStoreManagerRequestOptions {
-  signal?: AbortSignal
+  adminPassword: string
   keepalive?: boolean
-  timeout?: number | false
+  timeout?: number
+}
+
+class EStoreManager {
+  constructor(options: IEStoreManagerOptions)
+
+  JsonSchema: JsonSchemaClient
+  Blacklist: BlacklistClient
+  Whitelist: WhitelistClient
+  TokenPolicy: TokenPolicyClient
+  Token: TokenClient
 }
 ```
 
-#### JsonSchema
-##### getNamespaces
+#### JsonSchemaClient
 ```ts
-EStoreManager#JsonSchema.getNamespaces(
-  options?: IEStoreManagerRequestOptions
-): Promise<string[]>
+class JsonSchemaClient {
+  getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]>
+  get(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<unknown>
+  set(
+    namespace: string
+  , schema: Json
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  remove(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### get
+#### BlacklistClient
 ```ts
-EStoreManager#JsonSchema.get(namespace: string, options?: IEStoreManagerRequestOptions): Promise<Json>
+class BlacklistClient {
+  getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void>
+  remove(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### set
+#### WhitelistClient
 ```ts
-EStoreManager#JsonSchema.set(
-  namespace: string
-, schema: Json
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
+class WhitelistClient {
+  getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void>
+  remove(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### remove
+#### TokenPolicyClient
 ```ts
-EStoreManager#JsonSchema.remove(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Blacklist
-##### getNamespaces
-```ts
-EStoreManager#Blacklist.getNamespaces(
-  options?: IEStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-```ts
-EStoreManager#Blacklist.add(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-```ts
-EStoreManager#Blacklist.remove(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Whitelist
-##### getNamespaces
-```ts
-EStoreManager#Whitelist.getNamespaces(
-  options?: IEStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-```ts
-EStoreManager#Whitelist.add(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-```ts
-EStoreManager#Whitelist.remove(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### TokenPolicy
-##### getNamespaces
-```ts
-EStoreManager#TokenPolicy.getNamespaces(
-  options?: IEStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### get
-```ts
-EStoreManager#TokenPolicy.get(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<{
+interface ITokenPolicy {
   writeTokenRequired: boolean | null
   readTokenRequired: boolean | null
   deleteTokenRequired: boolean | null
-}>
+}
+
+class TokenPolicyClient {
+  getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]>
+  get(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<ITokenPolicy>
+  setWriteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteTokenRequired(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  setReadTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadTokenRequired(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  setDeleteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteTokenRequired(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### setWriteTokenRequired
+#### TokenClient
 ```ts
-EStoreManager#TokenPolicy.setWriteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeWriteTokenRequired
-```ts
-EStoreManager#TokenPolicy.removeWriteTokenRequired(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### setReadTokenRequired
-```ts
-EStoreManager#TokenPolicy.setReadTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadTokenRequired
-```ts
-EStoreManager#TokenPolicy.removeReadTokenRequired(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### setDeleteTokenRequired
-```ts
-EStoreManager#TokenPolicy.setDeleteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteTokenRequired
-```ts
-EStoreManager#TokenPolicy.removeDeleteTokenRequired(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Token
-##### getNamespaces
-```ts
-EStoreManager#Token.getNamespaces(options?: IEStoreManagerRequestOptions): Promise<string[]>
-```
-
-##### getTokens
-```ts
-EStoreManager#Token.getTokens(
-  namespace: string
-, options?: IEStoreManagerRequestOptions
-): Promise<Array<{
+interface ITokenInfo {
   token: string
   write: boolean
   read: boolean
   delete: boolean
-}>>
-```
+}
 
-##### addWriteToken
-```ts
-EStoreManager#Token.addWriteToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
+class TokenClient {
+  getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]>
+  getTokens(
+    namespace: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<ITokenInfo[]>
+  addWriteToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  addReadToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  addDeleteToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteToken(
+    namespace: string
+  , token: string
+  , options: IEStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 
-##### removeWriteToken
-```ts
-EStoreManager#Token.removeWriteToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### addReadToken
-```ts
-EStoreManager#Token.addReadToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadToken
-```ts
-EStoreManager#Token.removeReadToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### addDeleteToken
-```ts
-EStoreManager#Token.addDeleteToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteToken
-```ts
-EStoreManager#Token.removeDeleteToken(
-  namespace: string
-, token: string
-, options?: IEStoreManagerRequestOptions
-): Promise<void>
 ```
