@@ -2,6 +2,7 @@ import { IHTTPOptionsTransformer } from 'extra-request'
 import { url, signal, keepalive, bearerAuth, header } from 'extra-request/transformers/index.js'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
 import type { IEStoreManagerOptions } from './estore-manager'
+import { Falsy } from 'justypes'
 
 export interface IEStoreManagerRequestOptions {
   signal?: AbortSignal
@@ -16,7 +17,7 @@ export class EStoreManagerBase {
 
   protected getCommonTransformers(
     options: IEStoreManagerRequestOptions
-  ): IHTTPOptionsTransformer[] {
+  ): Array<IHTTPOptionsTransformer | Falsy> {
     return [
       url(this.options.server)
     , bearerAuth(this.options.adminPassword)
@@ -27,7 +28,7 @@ export class EStoreManagerBase {
           (this.options.timeout && timeoutSignal(this.options.timeout))
         )
       ]))
-    , keepalive(options.keepalive ?? this.options.keepalive)
+    , (options.keepalive ?? this.options.keepalive) && keepalive()
     , header('Accept-Version', expectedVersion)
     ]
   }
