@@ -3,9 +3,9 @@ import { Json } from 'justypes'
 import { get, put, del } from 'extra-request'
 import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IEStoreManagerRequestOptions, EStoreManagerBase } from './utils'
+import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
-export class JsonSchemaClient extends EStoreManagerBase {
+export class JsonSchemaManager extends EStoreManagerBase {
   /**
    * @throws {AbortError}
    */

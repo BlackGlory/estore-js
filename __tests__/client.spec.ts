@@ -1,5 +1,5 @@
-import { server } from '@test/estore.mock'
-import { EStoreClient } from '@src/estore-client'
+import { server } from '@test/client.mock'
+import { EStoreClient } from '@src/client'
 import { TOKEN } from '@test/utils'
 import '@blackglory/jest-matchers'
 

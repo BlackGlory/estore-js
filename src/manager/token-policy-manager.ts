@@ -2,7 +2,7 @@ import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
 import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IEStoreManagerRequestOptions, EStoreManagerBase } from './utils'
+import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
 interface ITokenPolicy {
   writeTokenRequired: boolean | null
@@ -10,7 +10,7 @@ interface ITokenPolicy {
   deleteTokenRequired: boolean | null
 }
 
-export class TokenPolicyClient extends EStoreManagerBase {
+export class TokenPolicyManager extends EStoreManagerBase {
   /**
    * @throws {AbortError}
    */

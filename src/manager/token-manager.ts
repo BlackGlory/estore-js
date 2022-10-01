@@ -2,7 +2,7 @@ import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
 import { pathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IEStoreManagerRequestOptions, EStoreManagerBase } from './utils'
+import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
 interface ITokenInfo {
   token: string
@@ -11,7 +11,7 @@ interface ITokenInfo {
   delete: boolean
 }
 
-export class TokenClient extends EStoreManagerBase {
+export class TokenManager extends EStoreManagerBase {
   /**
    * @throws {AbortError}
    */
