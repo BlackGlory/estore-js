@@ -8,8 +8,6 @@ import { raceAbortSignals, timeoutSignal } from 'extra-abort'
 import { isntUndefined } from '@blackglory/types'
 import { expectedVersion } from '@src/utils'
 
-export { HTTPClientError } from '@blackglory/http-status'
-
 interface IInfo {
   namespace: string
   items: number

@@ -1,4 +1,4 @@
 export * from './client'
 export * from './manager'
-export { HTTPError } from 'extra-response'
+export * as HTTPStatus from '@blackglory/http-status'
 export { AbortError } from 'extra-fetch'
