@@ -2816,7 +2816,7 @@ extra-abort@^0.1.1:
     iterable-operator "^1.0.0"
     justypes "^2.0.0"
 
-extra-fetch@^1.8.5:
+extra-fetch@^1.8.4:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-1.9.0.tgz#d28903cf33c6cc52271bd7dd4113b659907be04a"
   integrity sha512-OM/o8HoIa0h1nHdKby8CMHIy7GMvjMsxjw8XUDk0iXLdQfQddFn1GxkFHMzTFpnt5uN8U2slltZQa7/uI6/ILA==
