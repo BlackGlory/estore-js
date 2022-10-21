@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/BlackGlory/estore-js/compare/v0.1.7...v0.2.0) (2022-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed `HTTPStatus`, `AbortError`
+
+* replace `HTTPStatus`, `AbortError` with peer dependencies ([c828cab](https://github.com/BlackGlory/estore-js/commit/c828cab9d17a97b9afe69e366664b7f1fb291151))
+
 ### [0.1.7](https://github.com/BlackGlory/estore-js/compare/v0.1.6...v0.1.7) (2022-10-21)
 
 ### [0.1.6](https://github.com/BlackGlory/estore-js/compare/v0.1.5...v0.1.6) (2022-10-21)
