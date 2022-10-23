@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { head, post, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, json, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
+import { url, appendPathname, json, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON } from 'extra-response'
 import { Falsy } from 'justypes'
@@ -76,7 +76,7 @@ export class EStoreClient {
   ): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}/events`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}/events`)
     , isntUndefined(index) && header('If-Match', `${index}`)
     , json(payload)
     )
@@ -95,7 +95,7 @@ export class EStoreClient {
   ): Promise<T | undefined> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}/events/${index}`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}/events/${index}`)
     )
 
     try {
@@ -118,7 +118,7 @@ export class EStoreClient {
   ): Promise<T[] | undefined> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}/events`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}/events`)
     )
 
     try {
@@ -141,7 +141,7 @@ export class EStoreClient {
   ): Promise<number> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}/size`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}/size`)
     )
 
     return await fetch(req)
@@ -159,7 +159,7 @@ export class EStoreClient {
   ): Promise<boolean> {
     const req = head(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}`)
     )
 
     try {
@@ -181,7 +181,7 @@ export class EStoreClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items/${itemId}`)
+    , appendPathname(`/estore/${namespace}/items/${itemId}`)
     )
 
     await fetch(req).then(ok)
@@ -196,7 +196,7 @@ export class EStoreClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}`)
+    , appendPathname(`/estore/${namespace}`)
     )
 
     await fetch(req).then(ok)
@@ -211,7 +211,7 @@ export class EStoreClient {
   ): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/items`)
+    , appendPathname(`/estore/${namespace}/items`)
     )
 
     return await fetch(req)
@@ -227,7 +227,7 @@ export class EStoreClient {
   ): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/estore')
+    , appendPathname('/estore')
     )
 
     return await fetch(req)
@@ -244,7 +244,7 @@ export class EStoreClient {
   ): Promise<IInfo> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/estore/${namespace}/stats`)
+    , appendPathname(`/estore/${namespace}/stats`)
     )
 
     return await fetch(req)

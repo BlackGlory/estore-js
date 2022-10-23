@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname } from 'extra-request/transformers/index.js'
+import { appendPathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
@@ -18,7 +18,7 @@ export class TokenManager extends EStoreManagerBase {
   async getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/estore-with-tokens')
+    , appendPathname('/admin/estore-with-tokens')
     )
 
     return await fetch(req)
@@ -35,7 +35,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<ITokenInfo[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens`)
+    , appendPathname(`/admin/estore/${namespace}/tokens`)
     )
 
     return await fetch(req)
@@ -53,7 +53,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/write`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/write`)
     )
 
     await fetch(req).then(ok)
@@ -69,7 +69,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/write`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/write`)
     )
 
     await fetch(req).then(ok)
@@ -85,7 +85,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/read`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/read`)
     )
 
     await fetch(req).then(ok)
@@ -101,7 +101,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/read`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/read`)
     )
 
     await fetch(req).then(ok)
@@ -117,7 +117,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/delete`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/delete`)
     )
 
     await fetch(req).then(ok)
@@ -133,7 +133,7 @@ export class TokenManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/tokens/${token}/delete`)
+    , appendPathname(`/admin/estore/${namespace}/tokens/${token}/delete`)
     )
 
     await fetch(req).then(ok)

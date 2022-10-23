@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname } from 'extra-request/transformers/index.js'
+import { appendPathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
@@ -11,7 +11,7 @@ export class WhitelistManager extends EStoreManagerBase {
   async getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/whitelist')
+    , appendPathname('/admin/whitelist')
     )
 
     return await fetch(req)
@@ -25,7 +25,7 @@ export class WhitelistManager extends EStoreManagerBase {
   async add(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/whitelist/${namespace}`)
+    , appendPathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)
@@ -37,7 +37,7 @@ export class WhitelistManager extends EStoreManagerBase {
   async remove(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/whitelist/${namespace}`)
+    , appendPathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)

@@ -1,7 +1,7 @@
 import { fetch } from 'extra-fetch'
 import { Json } from 'justypes'
 import { get, put, del } from 'extra-request'
-import { pathname, json } from 'extra-request/transformers/index.js'
+import { appendPathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
 
@@ -12,7 +12,7 @@ export class JsonSchemaManager extends EStoreManagerBase {
   async getNamespaces(options: IEStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/estore-with-json-schema')
+    , appendPathname('/admin/estore-with-json-schema')
     )
 
     return await fetch(req)
@@ -26,7 +26,7 @@ export class JsonSchemaManager extends EStoreManagerBase {
   async get(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<unknown> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/json-schema`)
+    , appendPathname(`/admin/estore/${namespace}/json-schema`)
     )
 
     return await fetch(req)
@@ -44,7 +44,7 @@ export class JsonSchemaManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/json-schema`)
+    , appendPathname(`/admin/estore/${namespace}/json-schema`)
     , json(schema)
     )
 
@@ -60,7 +60,7 @@ export class JsonSchemaManager extends EStoreManagerBase {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/estore/${namespace}/json-schema`)
+    , appendPathname(`/admin/estore/${namespace}/json-schema`)
     )
 
     await fetch(req).then(ok)
