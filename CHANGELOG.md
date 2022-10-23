@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/BlackGlory/estore-js/compare/v0.2.2...v0.2.3) (2022-10-23)
+
+
+### Bug Fixes
+
+* replace `pathname` with `appendPathname` ([7eb9bab](https://github.com/BlackGlory/estore-js/commit/7eb9bab15c86baeb7439e268df4bb324d2fdcb03))
+
 ### [0.2.2](https://github.com/BlackGlory/estore-js/compare/v0.2.1...v0.2.2) (2022-10-21)
 
 ### [0.2.1](https://github.com/BlackGlory/estore-js/compare/v0.2.0...v0.2.1) (2022-10-21)
