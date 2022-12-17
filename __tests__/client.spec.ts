@@ -1,7 +1,6 @@
 import { server } from '@test/client.mock'
 import { EStoreClient } from '@src/client'
 import { TOKEN } from '@test/utils'
-import '@blackglory/jest-matchers'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -13,11 +12,9 @@ describe('EStoreClient', () => {
     const namespace = 'namespace'
     const id = 'id'
 
-    const result = client.append(namespace, id, 'message')
-    const proResult = await result
+    const result = await client.append(namespace, id, 'message')
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   describe(`
@@ -32,11 +29,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.getEvent(namespace, 'id', 0)
-        const proResult = await result
+        const result = await client.getEvent(namespace, 'id', 0)
 
-        expect(result).toBePromise()
-        expect(proResult).toStrictEqual('event')
+        expect(result).toStrictEqual('event')
       })
     })
 
@@ -45,11 +40,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.getEvent(namespace, 'id', 1)
-        const proResult = await result
+        const result = await client.getEvent(namespace, 'id', 1)
 
-        expect(result).toBePromise()
-        expect(proResult).toBeUndefined()
+        expect(result).toBeUndefined()
       })
     })
   })
@@ -60,11 +53,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.getEvents(namespace, 'id')
-        const proResult = await result
+        const result = await client.getEvents(namespace, 'id')
 
-        expect(result).toBePromise()
-        expect(proResult).toStrictEqual(['event'])
+        expect(result).toStrictEqual(['event'])
       })
     })
 
@@ -73,11 +64,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.getEvents(namespace, 'not-found')
-        const proResult = await result
+        const result = await client.getEvents(namespace, 'not-found')
 
-        expect(result).toBePromise()
-        expect(proResult).toBeUndefined()
+        expect(result).toBeUndefined()
       })
     })
   })
@@ -86,11 +75,9 @@ describe('EStoreClient', () => {
     const client = createClient()
     const namespace = 'namespace'
 
-    const result = client.getSize(namespace, 'id')
-    const proResult = await result
+    const result = await client.getSize(namespace, 'id')
 
-    expect(result).toBePromise()
-    expect(proResult).toBe(1)
+    expect(result).toBe(1)
   })
 
   describe('has(namespace, string, itemId: string): Promise<boolean>', () => {
@@ -99,11 +86,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.has(namespace, 'id')
-        const proResult = await result
+        const result = await client.has(namespace, 'id')
 
-        expect(result).toBePromise()
-        expect(proResult).toBe(true)
+        expect(result).toBe(true)
       })
     })
 
@@ -112,11 +97,9 @@ describe('EStoreClient', () => {
         const client = createClient()
         const namespace = 'namespace'
 
-        const result = client.has(namespace, 'not-found')
-        const proResult = await result
+        const result = await client.has(namespace, 'not-found')
 
-        expect(result).toBePromise()
-        expect(proResult).toBe(false)
+        expect(result).toBe(false)
       })
     })
   })
@@ -126,54 +109,44 @@ describe('EStoreClient', () => {
     const namespace = 'namespace'
     const id = 'id'
 
-    const result = client.del(namespace, id)
-    const proResult = await result
+    const result = await client.del(namespace, id)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('clear(namespace: string): Prmise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
-    const result = client.clear(namespace)
-    const proResult = await result
+    const result = await client.clear(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('getAllItemIds(namespace: string): Promise<string[]>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
-    const result = client.getAllItemIds(namespace)
-    const proResult = await result
+    const result = await client.getAllItemIds(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(result).toStrictEqual(['id'])
   })
 
   test('getAllNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getAllNamespaces()
-    const proResult = await result
+    const result = await client.getAllNamespaces()
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['namespace'])
+    expect(result).toStrictEqual(['namespace'])
   })
 
   test('stats(namespace: string): Promise<{ namespace: string; items: number }>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
-    const result = client.stats(namespace)
-    const proResult = await result
+    const result = await client.stats(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual({
+    expect(result).toStrictEqual({
       namespace
     , items: 1
     })
