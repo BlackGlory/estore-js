@@ -1,6 +1,6 @@
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
-import { badToken } from '@test/utils'
+import { badToken } from '@test/utils.js'
 
 export const server = setupServer(
   rest.post('/estore/namespace/items/id/events', (req, res, ctx) => {

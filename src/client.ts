@@ -1,12 +1,12 @@
 import { fetch } from 'extra-fetch'
-import { head, post, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, appendPathname, json, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
+import { head, post, get, del, IRequestOptionsTransformer } from 'extra-request'
+import { url, appendPathname, json, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON } from 'extra-response'
 import { Falsy } from 'justypes'
 import { raceAbortSignals, timeoutSignal } from 'extra-abort'
-import { isntUndefined } from '@blackglory/types'
-import { expectedVersion } from '@src/utils'
+import { isntUndefined } from '@blackglory/prelude'
+import { expectedVersion } from '@src/utils.js'
 
 interface IInfo {
   namespace: string
@@ -42,7 +42,7 @@ export class EStoreClient {
 
   private getCommonTransformers(
     options: IEStoreClientRequestOptions | IEStoreClientRequestOptionsWithoutToken
-  ): Array<IHTTPOptionsTransformer | Falsy> {
+  ): Array<IRequestOptionsTransformer | Falsy> {
     const token = 'token' in options
                   ? (options.token ?? this.options.token)
                   : this.options.token

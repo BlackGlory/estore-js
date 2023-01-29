@@ -1,9 +1,9 @@
 import { fetch } from 'extra-fetch'
-import { Json } from 'justypes'
+import { JSONValue } from 'justypes'
 import { get, put, del } from 'extra-request'
-import { appendPathname, json } from 'extra-request/transformers/index.js'
+import { appendPathname, json } from 'extra-request/transformers'
 import { ok, toJSON } from 'extra-response'
-import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base'
+import { IEStoreManagerRequestOptions, EStoreManagerBase } from './base.js'
 
 export class JsonSchemaManager extends EStoreManagerBase {
   /**
@@ -39,7 +39,7 @@ export class JsonSchemaManager extends EStoreManagerBase {
    */
   async set(
     namespace: string
-  , schema: Json
+  , schema: JSONValue
   , options: IEStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(

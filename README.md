@@ -134,7 +134,7 @@ class JsonSchemaManager {
   get(namespace: string, options: IEStoreManagerRequestOptions = {}): Promise<unknown>
   set(
     namespace: string
-  , schema: Json
+  , schema: JSONValue
   , options: IEStoreManagerRequestOptions = {}
   ): Promise<void>
   remove(
