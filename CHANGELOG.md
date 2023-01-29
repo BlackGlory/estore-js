@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/BlackGlory/estore-js/compare/v0.2.4...v0.3.0) (2023-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* - CommonJS => ESM.
+- The minimal version of Node.js is 16.
+- It requires EStore^0.2.0.
+* It requires EStore 0.2.0
+
+### Features
+
+* upgrade ([a4a60de](https://github.com/BlackGlory/estore-js/commit/a4a60debfb2a4ea6478c7fd3c53c16a74e4c4044))
+* upgrade ([a567893](https://github.com/BlackGlory/estore-js/commit/a5678933001a40872b7d32cc448461dc94c8ab45))
+
 ### [0.2.4](https://github.com/BlackGlory/estore-js/compare/v0.2.3...v0.2.4) (2022-10-31)
 
 ### [0.2.3](https://github.com/BlackGlory/estore-js/compare/v0.2.2...v0.2.3) (2022-10-23)
