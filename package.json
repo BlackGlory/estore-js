@@ -24,7 +24,7 @@
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --config jest.config.cjs",
     "prepublishOnly": "run-s prepare clean build",
     "clean": "rimraf lib",
-    "build": "tsc --project tsconfig.build.json --outDir lib",
+    "build": "tsc --project tsconfig.build.json",
     "release": "standard-version"
   },
   "husky": {
