@@ -5,12 +5,12 @@
   , "moduleResolution": "NodeNext"
   , "esModuleInterop": true
   , "strict": true
-  , "noUnusedLocals": true
+  , "noUnusedLocals": false
   , "noUnusedParameters": false
   , "baseUrl": "."
   , "paths": {
       "@src/*": ["src/*"]
-    , "@manager/*": ["src/manager/*"]
+    , "@utils/*": ["src/utils/*"]
     , "@test/*": ["__tests__/*"]
     }
   , "plugins" : [
