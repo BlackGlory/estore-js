@@ -20,6 +20,8 @@ interface IEStoreClientOptions {
   retryIntervalForReconnection?: number
 }
 
+class EventIndexConflict extends CustomError {}
+
 class EStoreClient {
   static create(options: IEStoreClientOptions): Promise<EStoreClient>
 
@@ -40,7 +42,7 @@ class EStoreClient {
 
   /**
    * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
-   * @throws {IllegalIndex}
+   * @throws {EventIndexConflict}
    */
   appendEvent(
     namespace: string

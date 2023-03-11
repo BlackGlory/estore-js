@@ -4,6 +4,7 @@ import { IAPI, IStats } from './contract.js'
 import { timeoutSignal, withAbortSignal } from 'extra-abort'
 import { isUndefined } from '@blackglory/prelude'
 export { IStats } from './contract.js'
+export { EventIndexConflict } from './contract.js'
 
 export interface IEStoreClientOptions {
   server: string
@@ -84,7 +85,7 @@ export class EStoreClient {
 
   /**
    * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
-   * @throws {IllegalIndex}
+   * @throws {EventIndexConflict}
    */
   async appendEvent(
     namespace: string
