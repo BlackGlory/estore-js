@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/BlackGlory/estore-js/compare/v0.4.0...v0.4.1) (2023-03-11)
+
+
+### Features
+
+* export EventIndexConflict ([4043a17](https://github.com/BlackGlory/estore-js/commit/4043a175ec7104783a11e80f46e75b9497d7b104))
+
 ## [0.4.0](https://github.com/BlackGlory/estore-js/compare/v0.3.0...v0.4.0) (2023-02-05)
 
 
