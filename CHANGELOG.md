@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/BlackGlory/estore-js/compare/v0.5.1...v0.5.2) (2023-03-28)
+
+
+### Bug Fixes
+
+* browser version ([29cf6a1](https://github.com/BlackGlory/estore-js/commit/29cf6a1b1274758faaa89087984ae00d5181f710))
+
 ### [0.5.1](https://github.com/BlackGlory/estore-js/compare/v0.5.0...v0.5.1) (2023-03-28)
 
 
