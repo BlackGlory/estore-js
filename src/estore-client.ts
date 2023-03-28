@@ -14,8 +14,11 @@ export interface IEStoreClientOptions {
 
 export class EStoreClient {
   static async create(options: IEStoreClientOptions): Promise<EStoreClient> {
-    const { client, close } = await createRPCClient(options.server)
-    return new EStoreClient(client, close)
+    const { client, close } = await createRPCClient(
+      options.server
+    , options.retryIntervalForReconnection
+    )
+    return new EStoreClient(client, close, options.timeout)
   }
 
   private constructor(
