@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/BlackGlory/estore-js/compare/v0.5.0...v0.5.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* timeout, retryIntervalForReconnection ([473d61b](https://github.com/BlackGlory/estore-js/commit/473d61bc44f8ae60c8b7a723adf4a72386d95618))
+
 ## [0.5.0](https://github.com/BlackGlory/estore-js/compare/v0.4.1...v0.5.0) (2023-03-28)
 
 
