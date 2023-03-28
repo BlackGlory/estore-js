@@ -9,35 +9,37 @@ yarn add @blackglory/estore-js
 ## API
 ### EStoreClient
 ```ts
-interface IStats {
-  namespace: string
+interface INamespaceStats {
   items: number
 }
 
-interface IEStoreClientOptions {
+export interface IEStoreClientOptions {
   server: string
   timeout?: number
   retryIntervalForReconnection?: number
 }
 
-class EventIndexConflict extends CustomError {}
-
-class EStoreClient {
+export class EStoreClient {
   static create(options: IEStoreClientOptions): Promise<EStoreClient>
 
   close(): Promise<void>
 
-  stats(namespace: string, timeout?: number): Promise<IStats>
+  getNamespaceStats(namespace: string, timeout?: number): Promise<INamespaceStats>
+
   getAllNamespaces(timeout?: number): Promise<string[]>
+
   getAllItemIds(namespace: string, timeout?: number): Promise<string[]>
+
   getAllEvents(
     namespace: string
   , itemId: string
   , timeout?: number
-  ): Promise<string[]>
+  ): Promise<JSONValue[]>
 
   clearItemsByNamespace(namespace: string, timeout?: number): Promise<void>
-  removeItem(namespace: string, itemId: string, timeout?: number): Promise<void> 
+
+  removeItem(namespace: string, itemId: string, timeout?: number): Promise<void>
+
   getItemSize(namespace: string, itemId: string, timeout?: number): Promise<number>
 
   /**
@@ -47,7 +49,7 @@ class EStoreClient {
   appendEvent(
     namespace: string
   , itemId: string
-  , event: string
+  , event: JSONValue
   , nextEventIndex?: number
   , timeout?: number
   ): Promise<void>
@@ -57,6 +59,6 @@ class EStoreClient {
   , itemId: string
   , index: number
   , timeout?: number
-  ): Promise<string | null>
+  ): Promise<JSONValue | null>
 }
 ```

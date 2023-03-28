@@ -1,9 +1,9 @@
 import { createRPCClient } from '@utils/rpc-client.js'
-import { ClientProxy, BatchClient, BatchClientProxy } from 'delight-rpc'
-import { IAPI, IStats } from './contract.js'
+import { ClientProxy } from 'delight-rpc'
+import { IAPI, INamespaceStats } from './contract.js'
 import { timeoutSignal, withAbortSignal } from 'extra-abort'
-import { isUndefined } from '@blackglory/prelude'
-export { IStats } from './contract.js'
+import { isUndefined, JSONValue } from '@blackglory/prelude'
+export { INamespaceStats } from './contract.js'
 export { EventIndexConflict } from './contract.js'
 
 export interface IEStoreClientOptions {
@@ -14,14 +14,12 @@ export interface IEStoreClientOptions {
 
 export class EStoreClient {
   static async create(options: IEStoreClientOptions): Promise<EStoreClient> {
-    const { client, batchClient, proxy, close } = await createRPCClient(options.server)
-    return new EStoreClient(client, batchClient, proxy, close, options.timeout)
+    const { client, close } = await createRPCClient(options.server)
+    return new EStoreClient(client, close)
   }
 
   private constructor(
     private client: ClientProxy<IAPI>
-  , private batchClient: BatchClient
-  , private batchProxy: BatchClientProxy<IAPI, unknown>
   , private closeClients: () => Promise<void>
   , private timeout?: number
   ) {}
@@ -30,9 +28,12 @@ export class EStoreClient {
     await this.closeClients()
   }
 
-  async stats(namespace: string, timeout?: number): Promise<IStats> {
+  async getNamespaceStats(
+    namespace: string
+  , timeout?: number
+  ): Promise<INamespaceStats> {
     return await this.withTimeout(
-      () => this.client.stats(namespace)
+      () => this.client.getNamespaceStats(namespace)
     , timeout ?? this.timeout
     )
   }
@@ -55,7 +56,7 @@ export class EStoreClient {
     namespace: string
   , itemId: string
   , timeout?: number
-  ): Promise<string[]> {
+  ): Promise<JSONValue[]> {
     return await this.withTimeout(
       () => this.client.getAllEvents(namespace, itemId)
     , timeout ?? this.timeout
@@ -69,14 +70,22 @@ export class EStoreClient {
     )
   }
 
-  async removeItem(namespace: string, itemId: string, timeout?: number): Promise<void> {
+  async removeItem(
+    namespace: string
+  , itemId: string
+  , timeout?: number
+  ): Promise<void> {
     await this.withTimeout(
       () => this.client.removeItem(namespace, itemId)
     , timeout ?? this.timeout
     )
   }
 
-  async getItemSize(namespace: string, itemId: string, timeout?: number): Promise<number> {
+  async getItemSize(
+    namespace: string
+  , itemId: string
+  , timeout?: number
+  ): Promise<number> {
     return await this.withTimeout(
       () => this.client.getItemSize(namespace, itemId)
     , timeout ?? this.timeout
@@ -90,7 +99,7 @@ export class EStoreClient {
   async appendEvent(
     namespace: string
   , itemId: string
-  , event: string
+  , event: JSONValue
   , nextEventIndex?: number
   , timeout?: number
   ): Promise<void> {
@@ -111,7 +120,7 @@ export class EStoreClient {
   , itemId: string
   , index: number
   , timeout?: number
-  ): Promise<string | null> {
+  ): Promise<JSONValue | null> {
     return await this.withTimeout(
       () => this.client.getEvent(namespace, itemId, index)
     , timeout ?? this.timeout
