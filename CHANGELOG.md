@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/BlackGlory/estore-js/compare/v0.5.3...v0.6.0) (2025-05-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* Replaced `timeout: number` with `signal: AbortSignal`
+* Node.js v16 => Node.js v22
+
+### Features
+
+* replace `timeout: number` with `signal: AbortSignal` ([15689b5](https://github.com/BlackGlory/estore-js/commit/15689b5b10d21f0c7e73d9ca6268e1b70d912b9c))
+
+
+* upgrade dependencies ([1ba3f00](https://github.com/BlackGlory/estore-js/commit/1ba3f00f439b4a7a9b45708a67332d59b538ddaa))
+
 ### [0.5.3](https://github.com/BlackGlory/estore-js/compare/v0.5.2...v0.5.3) (2023-06-10)
 
 
