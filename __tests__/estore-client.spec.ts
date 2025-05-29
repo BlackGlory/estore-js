@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { EStoreClient } from '@src/estore-client.js'
 
 const server = 'ws://estore:8080'
