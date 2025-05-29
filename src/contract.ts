@@ -28,11 +28,18 @@ export interface IAPI {
    * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
    * @throws {EventIndexConflict}
    */
-  appendEvent(
-    namespace: string
-  , itemId: string
-  , event: JSONValue
-  , nextEventIndex?: number
+  appendEvent(...args:
+  | [
+      namespace: string
+    , itemId: string
+    , event: JSONValue
+    ]
+  | [
+      namespace: string
+    , itemId: string
+    , event: JSONValue
+    , nextEventIndex: number
+    ]
   ): null
 
   getEvent(

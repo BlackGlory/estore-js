@@ -1,8 +1,8 @@
 import { createRPCClient } from '@utils/rpc-client.js'
 import { ClientProxy } from 'delight-rpc'
 import { IAPI, INamespaceStats } from './contract.js'
-import { timeoutSignal, withAbortSignal } from 'extra-abort'
-import { isUndefined, JSONValue } from '@blackglory/prelude'
+import { raceAbortSignals, timeoutSignal } from 'extra-abort'
+import { isntUndefined, isUndefined, JSONValue } from '@blackglory/prelude'
 export { INamespaceStats } from './contract.js'
 export { EventIndexConflict } from './contract.js'
 
@@ -33,65 +33,61 @@ export class EStoreClient {
 
   async getNamespaceStats(
     namespace: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<INamespaceStats> {
-    return await this.withTimeout(
-      () => this.client.getNamespaceStats(namespace)
-    , timeout ?? this.timeout
+    return await this.client.getNamespaceStats(
+      namespace
+    , this.withTimeout(signal)
     )
   }
 
-  async getAllNamespaces(timeout?: number): Promise<string[]> {
-    return await this.withTimeout(
-      () => this.client.getAllNamespaces()
-    , timeout ?? this.timeout
-    )
+  async getAllNamespaces(signal?: AbortSignal): Promise<string[]> {
+    return await this.client.getAllNamespaces(this.withTimeout(signal))
   }
 
-  async getAllItemIds(namespace: string, timeout?: number): Promise<string[]> {
-    return await this.withTimeout(
-      () => this.client.getAllItemIds(namespace)
-    , timeout ?? this.timeout
-    )
+  async getAllItemIds(
+    namespace: string
+  , signal?: AbortSignal
+  ): Promise<string[]> {
+    return await this.client.getAllItemIds(namespace, this.withTimeout(signal))
   }
 
   async getAllEvents(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<JSONValue[]> {
-    return await this.withTimeout(
-      () => this.client.getAllEvents(namespace, itemId)
-    , timeout ?? this.timeout
+    return await this.client.getAllEvents(
+      namespace
+    , itemId
+    , this.withTimeout(signal)
     )
   }
 
-  async clearItemsByNamespace(namespace: string, timeout?: number): Promise<void> {
-    await this.withTimeout(
-      () => this.client.clearItemsByNamespace(namespace)
-    , timeout ?? this.timeout
-    )
+  async clearItemsByNamespace(
+    namespace: string
+  , signal?: AbortSignal
+  ): Promise<void> {
+    await this.client.clearItemsByNamespace(namespace, this.withTimeout(signal))
   }
 
   async removeItem(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<void> {
-    await this.withTimeout(
-      () => this.client.removeItem(namespace, itemId)
-    , timeout ?? this.timeout
-    )
+    await this.client.removeItem(namespace, itemId, this.withTimeout(signal))
   }
 
   async getItemSize(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<number> {
-    return await this.withTimeout(
-      () => this.client.getItemSize(namespace, itemId)
-    , timeout ?? this.timeout
+    return await this.client.getItemSize(
+      namespace
+    , itemId
+    , this.withTimeout(signal)
     )
   }
 
@@ -104,40 +100,44 @@ export class EStoreClient {
   , itemId: string
   , event: JSONValue
   , nextEventIndex?: number
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<void> {
-    await this.withTimeout(
-      () => {
-        if (isUndefined(nextEventIndex)) {
-          return this.client.appendEvent(namespace, itemId, event)
-        } else {
-          return this.client.appendEvent(namespace, itemId, event, nextEventIndex)
-        }
-      }
-    , timeout ?? this.timeout
-    )
+    if (isUndefined(nextEventIndex)) {
+      await this.client.appendEvent(
+        namespace
+      , itemId
+      , event
+      , this.withTimeout(signal)
+      )
+    } else {
+      await this.client.appendEvent(
+        namespace
+      , itemId
+      , event
+      , nextEventIndex
+      , this.withTimeout(signal)
+      )
+    }
   }
 
   async getEvent(
     namespace: string
   , itemId: string
   , index: number
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<JSONValue | null> {
-    return await this.withTimeout(
-      () => this.client.getEvent(namespace, itemId, index)
-    , timeout ?? this.timeout
+    return await this.client.getEvent(
+      namespace
+    , itemId
+    , index
+    , this.withTimeout(signal)
     )
   }
 
-  private async withTimeout<T>(
-    fn: () => PromiseLike<T>
-  , timeout: number | undefined = this.timeout
-  ): Promise<T> {
-    if (timeout) {
-      return await withAbortSignal(timeoutSignal(timeout), fn)
-    } else {
-      return await fn()
-    }
+  private withTimeout(signal?: AbortSignal): AbortSignal {
+    return raceAbortSignals([
+      isntUndefined(this.timeout) && timeoutSignal(this.timeout)
+    , signal
+    ])
   }
 }

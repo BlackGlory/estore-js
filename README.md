@@ -24,23 +24,34 @@ export class EStoreClient {
 
   close(): Promise<void>
 
-  getNamespaceStats(namespace: string, timeout?: number): Promise<INamespaceStats>
+  getNamespaceStats(
+    namespace: string
+  , signal?: AbortSignal
+  ): Promise<INamespaceStats>
 
-  getAllNamespaces(timeout?: number): Promise<string[]>
+  getAllNamespaces(signal?: AbortSignal): Promise<string[]>
 
-  getAllItemIds(namespace: string, timeout?: number): Promise<string[]>
+  getAllItemIds(namespace: string, signal?: AbortSignal): Promise<string[]>
 
   getAllEvents(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<JSONValue[]>
 
-  clearItemsByNamespace(namespace: string, timeout?: number): Promise<void>
+  clearItemsByNamespace(namespace: string, signal?: AbortSignal): Promise<void>
 
-  removeItem(namespace: string, itemId: string, timeout?: number): Promise<void>
+  removeItem(
+    namespace: string
+  , itemId: string
+  , signal?: AbortSignal
+  ): Promise<void>
 
-  getItemSize(namespace: string, itemId: string, timeout?: number): Promise<number>
+  getItemSize(
+    namespace: string
+  , itemId: string
+  , signal?: AbortSignal
+  ): Promise<number>
 
   /**
    * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
@@ -51,14 +62,14 @@ export class EStoreClient {
   , itemId: string
   , event: JSONValue
   , nextEventIndex?: number
-  , timeout?: number
+  , signal?: ABortSignal
   ): Promise<void>
 
   getEvent(
     namespace: string
   , itemId: string
   , index: number
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<JSONValue | null>
 }
 ```
