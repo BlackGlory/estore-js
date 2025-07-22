@@ -17,6 +17,7 @@ export class EStoreClient {
     const { client, close } = await createRPCClient(
       options.server
     , options.retryIntervalForReconnection
+    , options.timeout
     )
     return new EStoreClient(client, close, options.timeout)
   }
