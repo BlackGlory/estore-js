@@ -93,7 +93,7 @@ export class EStoreClient {
   }
 
   /**
-   * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
+   * @param nextEventIndex 如果指定, 则会在不匹配下一个index时抛出EventIndexConflict错误.
    * @throws {EventIndexConflict}
    */
   async appendEvent(
@@ -116,6 +116,32 @@ export class EStoreClient {
       , itemId
       , event
       , nextEventIndex
+      , this.withTimeout(signal)
+      )
+    }
+  }
+
+  /**
+   * @param lastEventIndex 如果指定, 则会在不匹配最后一个index时抛出EventIndexConflict错误.
+   * @throws {EventIndexConflict}
+   */
+  async popEvent(
+    namespace: string
+  , itemId: string
+  , lastEventIndex?: number
+  , signal?: AbortSignal
+  ): Promise<void> {
+    if (isUndefined(lastEventIndex)) {
+      await this.client.popEvent(
+        namespace
+      , itemId
+      , this.withTimeout(signal)
+      )
+    } else {
+      await this.client.popEvent(
+        namespace
+      , itemId
+      , lastEventIndex
       , this.withTimeout(signal)
       )
     }

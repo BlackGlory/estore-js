@@ -1,7 +1,7 @@
 import { CustomError } from '@blackglory/errors'
 import { JSONValue } from 'justypes'
 
-export const expectedVersion = '^0.4.0'
+export const expectedVersion = '^0.4.1'
 
 export interface INamespaceStats {
   items: number
@@ -25,7 +25,7 @@ export interface IAPI {
   getItemSize(namespace: string, itemId: string): number
 
   /**
-   * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
+   * @param nextEventIndex 如果指定, 则会在不匹配下一个index时抛出EventIndexConflict错误.
    * @throws {EventIndexConflict}
    */
   appendEvent(...args:
@@ -39,6 +39,22 @@ export interface IAPI {
     , itemId: string
     , event: JSONValue
     , nextEventIndex: number
+    ]
+  ): null
+
+  /**
+   * @param lastEventIndex 如果指定, 则会在不匹配最后一个index时抛出EventIndexConflict错误.
+   * @throws {EventIndexConflict}
+   */
+  popEvent(...args:
+  | [
+      namespace: string
+    , itemId: string
+    ]
+  | [
+      namespace: string
+    , itemId: string
+    , lastEventIndex: number
     ]
   ): null
 

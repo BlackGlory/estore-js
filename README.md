@@ -54,7 +54,7 @@ export class EStoreClient {
   ): Promise<number>
 
   /**
-   * @param nextEventIndex 如果指定, 则会在eventIndex不等于下一个index时抛出EventIndexConflict错误.
+   * @param nextEventIndex 如果指定, 则会在不匹配下一个index时抛出EventIndexConflict错误.
    * @throws {EventIndexConflict}
    */
   appendEvent(
@@ -63,6 +63,17 @@ export class EStoreClient {
   , event: JSONValue
   , nextEventIndex?: number
   , signal?: ABortSignal
+  ): Promise<void>
+
+  /**
+   * @param lastEventIndex 如果指定, 则会在不匹配最后一个index时抛出EventIndexConflict错误.
+   * @throws {EventIndexConflict}
+   */
+  popEvent(
+    namespace: string
+  , itemId: string
+  , lastEventIndex?: number
+  , signal?: AbortSignal
   ): Promise<void>
 
   getEvent(
