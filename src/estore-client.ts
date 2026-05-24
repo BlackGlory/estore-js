@@ -1,8 +1,8 @@
 import { createRPCClient } from '@utils/rpc-client.js'
 import { ClientProxy } from 'delight-rpc'
 import { IAPI, INamespaceStats } from './contract.js'
-import { raceAbortSignals, timeoutSignal } from 'extra-abort'
-import { isntUndefined, isUndefined, JSONValue } from '@blackglory/prelude'
+import { isAbortSignal, raceAbortSignals, timeoutSignal } from 'extra-abort'
+import { isUndefined, JSONValue } from '@blackglory/prelude'
 export { INamespaceStats } from './contract.js'
 export { EventIndexConflict } from './contract.js'
 
@@ -10,6 +10,11 @@ export interface IEStoreClientOptions {
   server: string
   timeout?: number
   retryIntervalForReconnection?: number
+}
+
+export interface IEStoreClientRequestOptions {
+  signal?: AbortSignal
+  timeout?: number | false
 }
 
 export class EStoreClient {
@@ -34,61 +39,75 @@ export class EStoreClient {
 
   async getNamespaceStats(
     namespace: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<INamespaceStats> {
     return await this.client.getNamespaceStats(
       namespace
-    , this.withTimeout(signal)
+    , this.createSignal(signalOrOptions)
     )
   }
 
-  async getAllNamespaces(signal?: AbortSignal): Promise<string[]> {
-    return await this.client.getAllNamespaces(this.withTimeout(signal))
+  async getAllNamespaces(
+    signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
+  ): Promise<string[]> {
+    return await this.client.getAllNamespaces(
+      this.createSignal(signalOrOptions)
+    )
   }
 
   async getAllItemIds(
     namespace: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<string[]> {
-    return await this.client.getAllItemIds(namespace, this.withTimeout(signal))
+    return await this.client.getAllItemIds(
+      namespace
+    , this.createSignal(signalOrOptions)
+    )
   }
 
   async getAllEvents(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<JSONValue[]> {
     return await this.client.getAllEvents(
       namespace
     , itemId
-    , this.withTimeout(signal)
+    , this.createSignal(signalOrOptions)
     )
   }
 
   async clearItemsByNamespace(
     namespace: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void> {
-    await this.client.clearItemsByNamespace(namespace, this.withTimeout(signal))
+    await this.client.clearItemsByNamespace(
+      namespace
+    , this.createSignal(signalOrOptions)
+    )
   }
 
   async removeItem(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void> {
-    await this.client.removeItem(namespace, itemId, this.withTimeout(signal))
+    await this.client.removeItem(
+      namespace
+    , itemId
+    , this.createSignal(signalOrOptions)
+    )
   }
 
   async getItemSize(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<number> {
     return await this.client.getItemSize(
       namespace
     , itemId
-    , this.withTimeout(signal)
+    , this.createSignal(signalOrOptions)
     )
   }
 
@@ -101,14 +120,14 @@ export class EStoreClient {
   , itemId: string
   , event: JSONValue
   , nextEventIndex?: number
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void> {
     if (isUndefined(nextEventIndex)) {
       await this.client.appendEvent(
         namespace
       , itemId
       , event
-      , this.withTimeout(signal)
+      , this.createSignal(signalOrOptions)
       )
     } else {
       await this.client.appendEvent(
@@ -116,7 +135,7 @@ export class EStoreClient {
       , itemId
       , event
       , nextEventIndex
-      , this.withTimeout(signal)
+      , this.createSignal(signalOrOptions)
       )
     }
   }
@@ -129,20 +148,20 @@ export class EStoreClient {
     namespace: string
   , itemId: string
   , lastEventIndex?: number
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void> {
     if (isUndefined(lastEventIndex)) {
       await this.client.popEvent(
         namespace
       , itemId
-      , this.withTimeout(signal)
+      , this.createSignal(signalOrOptions)
       )
     } else {
       await this.client.popEvent(
         namespace
       , itemId
       , lastEventIndex
-      , this.withTimeout(signal)
+      , this.createSignal(signalOrOptions)
       )
     }
   }
@@ -151,20 +170,29 @@ export class EStoreClient {
     namespace: string
   , itemId: string
   , index: number
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<JSONValue | null> {
     return await this.client.getEvent(
       namespace
     , itemId
     , index
-    , this.withTimeout(signal)
+    , this.createSignal(signalOrOptions)
     )
   }
 
-  private withTimeout(signal?: AbortSignal): AbortSignal {
+  private createSignal(
+    signalOrOptions: AbortSignal | IEStoreClientRequestOptions = {}
+  ): AbortSignal {
+    const options: IEStoreClientRequestOptions = isAbortSignal(signalOrOptions)
+                                               ? { signal: signalOrOptions }
+                                               : signalOrOptions
+
     return raceAbortSignals([
-      isntUndefined(this.timeout) && timeoutSignal(this.timeout)
-    , signal
+      options.signal
+    , options.timeout !== false && (
+        (options.timeout && timeoutSignal(options.timeout)) ??
+        (this.timeout && timeoutSignal(this.timeout))
+      )
     ])
   }
 }

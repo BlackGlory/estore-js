@@ -13,44 +13,57 @@ interface INamespaceStats {
   items: number
 }
 
-export interface IEStoreClientOptions {
+interface IEStoreClientOptions {
   server: string
   timeout?: number
   retryIntervalForReconnection?: number
 }
 
-export class EStoreClient {
+interface IEStoreClientRequestOptions {
+  signal?: AbortSignal
+  timeout?: number | false
+}
+
+class EStoreClient {
   static create(options: IEStoreClientOptions): Promise<EStoreClient>
 
   close(): Promise<void>
 
   getNamespaceStats(
     namespace: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<INamespaceStats>
 
-  getAllNamespaces(signal?: AbortSignal): Promise<string[]>
+  getAllNamespaces(
+    signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
+  ): Promise<string[]>
 
-  getAllItemIds(namespace: string, signal?: AbortSignal): Promise<string[]>
+  getAllItemIds(
+    namespace: string
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
+  ): Promise<string[]>
 
   getAllEvents(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<JSONValue[]>
 
-  clearItemsByNamespace(namespace: string, signal?: AbortSignal): Promise<void>
+  clearItemsByNamespace(
+    namespace: string
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
+  ): Promise<void>
 
   removeItem(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void>
 
   getItemSize(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<number>
 
   /**
@@ -62,7 +75,7 @@ export class EStoreClient {
   , itemId: string
   , event: JSONValue
   , nextEventIndex?: number
-  , signal?: ABortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void>
 
   /**
@@ -73,14 +86,14 @@ export class EStoreClient {
     namespace: string
   , itemId: string
   , lastEventIndex?: number
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<void>
 
   getEvent(
     namespace: string
   , itemId: string
   , index: number
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IEStoreClientRequestOptions
   ): Promise<JSONValue | null>
 }
 ```
