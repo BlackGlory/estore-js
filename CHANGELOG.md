@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/BlackGlory/estore-js/compare/v0.7.0...v0.7.1) (2026-05-24)
+
+
+### Features
+
+* add support for `IEStoreClientRequestOptions` ([7c4dc77](https://github.com/BlackGlory/estore-js/commit/7c4dc774c6a7c58999272149c9a7b3bb9fc51134))
+
 ## [0.7.0](https://github.com/BlackGlory/estore-js/compare/v0.6.1...v0.7.0) (2026-03-14)
 
 
