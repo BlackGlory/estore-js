@@ -235,6 +235,18 @@
     iterable-operator "^5.0.0"
     justypes "^4.2.1"
 
+"@blackglory/structures@^0.14.11":
+  version "0.14.15"
+  resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.14.15.tgz#218c29c08c8ce403de768cf82d67537de050ebfc"
+  integrity sha512-uT6s1PS+Jx34XZtGQ+oyojXI0L3jfV+54OxiXauUlboP5JtdLuiHuy8IGAXtN5h02Apz2IZBDDvO0PsGM4Bzuw==
+  dependencies:
+    "@blackglory/errors" "^3.0.3"
+    "@blackglory/go" "^2.0.0"
+    extra-timers "^0.2.6"
+    extra-utils "^5.6.0"
+    iterable-operator "^5.0.0"
+    justypes "^4.2.1"
+
 "@blackglory/structures@^0.14.12", "@blackglory/structures@^0.14.13":
   version "0.14.13"
   resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.14.13.tgz#4edf1df75393ed0bc730004d061f119b8e398f72"
@@ -1007,6 +1019,11 @@ arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha512-3CYzex9M9FGQjCGMGyi6/31c8GJbgb0qGyrx5HWxPd0aCwh4cB2YjMb2Xf9UuoogrMrlO9cTqnB5rI5GHZTcUA==
+
+assert-never@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/assert-never/-/assert-never-1.4.0.tgz#b0d4988628c87f35eb94716cc54422a63927e175"
+  integrity sha512-5oJg84os6NMQNl27T9LnZkvvqzvAnHu03ShCnoj6bsJwS7L8AO4lf+C/XjK/nvzEqQB744moC6V128RucQd1jA==
 
 at-least-node@^1.0.0:
   version "1.0.0"
@@ -1789,6 +1806,19 @@ extra-abort@^0.4.1:
     iterable-operator "^5.1.0"
     justypes "^4.4.1"
 
+extra-abort@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/extra-abort/-/extra-abort-0.5.1.tgz#558a4e648ef262c9919ea0ce03301fd298e7949c"
+  integrity sha512-XPbKY0p+5g668dXkcTZXA080s+1hPlXB6dkZvTQNADZmhxbgeS4k2vg1RpxPRoydJatJoTUuxseawrY8s78fsw==
+  dependencies:
+    "@blackglory/errors" "^3.1.0"
+    "@blackglory/go" "^2.0.0"
+    "@blackglory/pass" "^1.1.1"
+    extra-defer "^0.3.1"
+    extra-timers "^0.3.1"
+    iterable-operator "^6.0.0"
+    justypes "^4.5.0"
+
 extra-compatible@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/extra-compatible/-/extra-compatible-0.1.8.tgz#8568d222a4090a6da1a9c106cc4613d7fe141eae"
@@ -1898,15 +1928,16 @@ extra-logger@^0.8.0:
     "@blackglory/prelude" "^0.3.3"
     chalk "^5.3.0"
 
-extra-native-websocket@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/extra-native-websocket/-/extra-native-websocket-0.5.1.tgz#208d193983fb141aa08af0fda351246c09c093e2"
-  integrity sha512-qiUGZH7hKa0Pq2wziYiVZE6D1MfUPz0Gw1D7Z3bUi6ryTPjMFzy33soB7M5octS1Xcn7t8YrqwikVkHuF3WbeQ==
+extra-native-websocket@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/extra-native-websocket/-/extra-native-websocket-0.5.2.tgz#8a6d6e801300a272f6dc32a0e0cd7974be2d54ad"
+  integrity sha512-VQ6xJRrC66bXINSqugUWGjkW1anyyivk3eN71wO18KqG/SvPwqctq1fc7Wr0+/XcJXdrQYYn4cmm97tt94ng6g==
   dependencies:
     "@blackglory/errors" "^3.0.3"
     "@blackglory/prelude" "^0.4.0"
     "@blackglory/structures" "^0.14.10"
     "@blackglory/wait-for" "^0.8.1"
+    assert-never "^1.4.0"
     extra-abort "^0.4.0"
     extra-defer "^0.3.1"
     extra-promise "^7.0.0"
@@ -2019,6 +2050,15 @@ extra-rand@^0.1.1:
   resolved "https://registry.yarnpkg.com/extra-rand/-/extra-rand-0.1.1.tgz#e75e71ec96eb2f9b47d2a3c6513b3fb042f05a45"
   integrity sha512-sDpJWzuKa1bTrVVG3dkCiNMt93NanphQIWhW4tUS9PDiA0KTZ+fzyS4Idw+7/lH5ZzxtOiHEJEnBWSN4gi8gyA==
 
+extra-rand@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/extra-rand/-/extra-rand-0.4.1.tgz#ccaa16b97e883a6dbefcc963d0a4302ee8bd92c8"
+  integrity sha512-wBQwldlMD8sJRvHugRfxC8pA4fo2MyffSCNXzaP3oHTcu8L1ZJldWuxf6Bs7X4h6NnkuRAap8bxQ6GTptYE2MA==
+  dependencies:
+    "@blackglory/errors" "^3.0.3"
+    extra-utils "^5.15.0"
+    justypes "^4.2.1"
+
 extra-timers@^0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/extra-timers/-/extra-timers-0.2.5.tgz#5b0bac06b111cfa1afbc1b991e1362dfe2db4617"
@@ -2032,6 +2072,16 @@ extra-timers@^0.2.6:
   integrity sha512-7HpyFSCzUSH1spEJbBCrPr18P6+wNuhOa1+kdkzg+TX2Kr8Sc5mj4Pv9OcDKwjktoRtms5q+vl/MHDwvD5moaA==
   dependencies:
     extra-rand "^0.1.1"
+
+extra-timers@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/extra-timers/-/extra-timers-0.3.1.tgz#e07515e6511fd11b7ac5f51ab0950f069dfedcc0"
+  integrity sha512-BsrNwC7eFEYAu/sJnB60iIen8fwYQt3BkLGDH+RrtO7+RY33TwWVFkHmpyd/bckkAlmurjUtNWdwQ7ikDT5HLg==
+  dependencies:
+    "@blackglory/pass" "^1.1.1"
+    extra-rand "^0.4.1"
+    extra-utils "^5.19.0"
+    justypes "^4.5.0"
 
 extra-utils@^3.3.0, extra-utils@^3.4.0:
   version "3.7.0"
@@ -2073,6 +2123,15 @@ extra-utils@^5.1.1:
     justypes "^4.1.0"
     lodash-es "^4.17.21"
 
+extra-utils@^5.15.0, extra-utils@^5.19.0, extra-utils@^5.20.0:
+  version "5.21.0"
+  resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-5.21.0.tgz#6ef27d7cf74749d0f1a25e1053e5d8b352ccf053"
+  integrity sha512-CcHHyAixw7rWc1cPKabKLwUYoA9ERszfHlh9kFJyZU2z/sND0zrEHChN6ex9XFquc4nshj5GlRikzV/+B7cwKQ==
+  dependencies:
+    "@blackglory/errors" "^3.1.0"
+    justypes "^4.2.0"
+    lodash-es "^4.17.21"
+
 extra-utils@^5.16.0, extra-utils@^5.2.0, extra-utils@^5.4.0, extra-utils@^5.6.0:
   version "5.19.0"
   resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-5.19.0.tgz#24279fd3eb29649862d859bb612d48708c25f39c"
@@ -2091,14 +2150,15 @@ extra-utils@^6.1.0:
     lodash-es "^4.17.23"
     return-style "^4.0.0"
 
-extra-websocket@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/extra-websocket/-/extra-websocket-0.5.1.tgz#8647da2bf5c24efa66e3ec816e4d0dbc199b7225"
-  integrity sha512-sHclj8/qATpVn3gMXt13cUCwNQ4TGdK+w0z5LZInCCPL6n7G9JAb9F76jNGA6FbfWOapYiPovxiFRubk5/jFMw==
+extra-websocket@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/extra-websocket/-/extra-websocket-0.5.3.tgz#ee84f710048cac4925a865ef1dfe68e57423068b"
+  integrity sha512-rnNTTkk3/mi2bNOxZf8XXP5yXeTeiUI48flt4GiTd1kmE3+yU6vfDTCkQrh2yDX+5jbRqRxAxMEzYgqD4xnxmA==
   dependencies:
     "@blackglory/prelude" "^0.4.0"
     "@blackglory/structures" "^0.14.10"
     "@blackglory/wait-for" "^0.8.1"
+    assert-never "^1.4.0"
     extra-abort "^0.4.0"
     extra-promise "^7.0.0"
     extra-timers "^0.2.6"
@@ -2837,6 +2897,19 @@ iterable-operator@^5.0.0, iterable-operator@^5.1.0:
     extra-promise "^6.2.0"
     extra-utils "^5.6.0"
     justypes "^4.2.1"
+
+iterable-operator@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-6.0.0.tgz#d313cf2e3fed4c812e15bde3d5e1baa4ed75b1e7"
+  integrity sha512-iBWp3pLGHcRu1lcL3JvfEY16AhECfwFO6efqW9vvg1M7CPQGuslWpPQ1erI70YQUDK673SPxg8cLguDj9IuoyQ==
+  dependencies:
+    "@blackglory/errors" "^3.0.3"
+    "@blackglory/go" "^2.0.0"
+    "@blackglory/structures" "^0.14.11"
+    extra-abort "^0.4.1"
+    extra-promise "^7.0.1"
+    extra-utils "^5.20.0"
+    justypes "^4.5.0"
 
 jiti@^2.4.1:
   version "2.4.2"
@@ -4453,10 +4526,10 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
 
-ws@^8.19.0:
-  version "8.19.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.19.0.tgz#ddc2bdfa5b9ad860204f5a72a4863a8895fd8c8b"
-  integrity sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==
+ws@^8.21.0:
+  version "8.21.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.21.0.tgz#012e413fc07429945121b0c153158c4343086951"
+  integrity sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==
 
 xtend@~4.0.1:
   version "4.0.2"

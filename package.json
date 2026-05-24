@@ -67,10 +67,10 @@
     "@delight-rpc/extra-native-websocket": "^0.6.6",
     "@delight-rpc/extra-websocket": "^0.7.8",
     "delight-rpc": "^7.0.0",
-    "extra-abort": "^0.4.1",
-    "extra-native-websocket": "^0.5.1",
-    "extra-websocket": "^0.5.1",
+    "extra-abort": "^0.5.1",
+    "extra-native-websocket": "^0.5.2",
+    "extra-websocket": "^0.5.3",
     "justypes": "^4.5.0",
-    "ws": "^8.19.0"
+    "ws": "^8.21.0"
   }
 }
