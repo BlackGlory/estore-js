@@ -29,12 +29,12 @@ export class EStoreClient {
 
   private constructor(
     private client: ClientProxy<IAPI>
-  , private closeClients: () => Promise<void>
+  , private closeClient: () => Promise<void>
   , private timeout?: number
   ) {}
 
   async close(): Promise<void> {
-    await this.closeClients()
+    await this.closeClient()
   }
 
   async getNamespaceStats(
