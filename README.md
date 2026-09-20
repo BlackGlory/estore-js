@@ -15,6 +15,11 @@ interface INamespaceStats {
 
 interface IEStoreClientOptions {
   server: string
+
+  basicAuth?: {
+    username: string
+    password: string
+  }
   timeout?: number
   retryIntervalForReconnection?: number
 }
