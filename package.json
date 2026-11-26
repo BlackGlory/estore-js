@@ -72,5 +72,8 @@
     "extra-websocket": "^0.5.3",
     "justypes": "^4.5.0",
     "ws": "^8.21.0"
+  },
+  "allowScripts": {
+    "husky": true
   }
 }
